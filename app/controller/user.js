@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 10:02:53
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-09 18:00:58
+ * @LastEditTime: 2024-07-10 17:13:46
  * @Description: 描述
  */
 "use strict";
@@ -122,13 +122,12 @@ class UserController extends Controller {
    * @Description 获取用户信息
    * @Router GET /user/getUserInfo
    * @Response 200 baseResponse ok
-   * @Request header string *token
+   * @Request header string *Authorization
    */
 
   async getUserInfo() {
     const { ctx, app } = this;
-    const token = ctx.request.header.token; // 获取header 的token
-    console.log(token);
+    const token = ctx.request.header.authorization; // 获取header 的token
     if (!token) {
       ctx.body = {
         code: 500,
