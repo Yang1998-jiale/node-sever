@@ -2,18 +2,18 @@
  * @Author: yjl
  * @Date: 2024-07-09 10:02:53
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-10 17:13:46
+ * @LastEditTime: 2024-07-12 14:37:54
  * @Description: 描述
  */
 "use strict";
-
-const Controller = require("egg").Controller;
+const HTTPException = require("../exception/http");
+const BaseController = require("./base");
 
 /**
  * @Controller 用户接口
  */
 
-class UserController extends Controller {
+class UserController extends BaseController {
   /**
    * @Summary 用户注册
    * @Description 输入用户名称和密码，注册新用户
@@ -27,43 +27,22 @@ class UserController extends Controller {
     const { username, password } = userInfo;
 
     if (!username || !password) {
-      ctx.body = {
-        code: 500,
-        message: "用户名或密码不能为空",
-      };
-      return;
+      throw new HTTPException(13, "用户名或密码不能为空", null, 500);
     }
     const userData = await ctx.service.user.getUserByName(username);
 
     if (userData === "error") {
-      ctx.body = {
-        code: 500,
-        message: "未知错误",
-        data: null,
-      };
-      return;
+      throw new HTTPException(8, "未知错误", null, 500);
     }
 
     if (userData && userData.id) {
-      ctx.body = {
-        code: 500,
-        message: "账户名已被注册，请重新输入",
-      };
-      return;
+      throw new HTTPException(2, "账户名已被注册，请重新输入", null, 200);
     }
     const result = await ctx.service.user.registerUser(userInfo);
     if (result) {
-      ctx.body = {
-        code: 200,
-        message: "注册成功",
-        data: null,
-      };
+      this.success(0, "注册成功", null);
     } else {
-      ctx.body = {
-        code: 500,
-        msg: "注册失败",
-        data: null,
-      };
+      throw new HTTPException(8, "注册失败", null, 500);
     }
   }
 
@@ -78,28 +57,15 @@ class UserController extends Controller {
     const { ctx, app } = this;
     const { username, password } = ctx.request.body;
     if (!username || !password) {
-      ctx.body = {
-        code: 500,
-        message: "用户名或密码不能为空",
-      };
-      return;
+      throw new HTTPException(13, "用户名或密码不能为空", null, 500);
     }
     const userInfo = await ctx.service.user.getUserByName(username);
     console.log(userInfo);
     if (!userInfo) {
-      ctx.body = {
-        code: 500,
-        message: "该用户名不存在,请重新输入",
-      };
-      return;
+      throw new HTTPException(1, "该用户名不存在,请重新输入", null, 200);
     }
     if (password !== userInfo.password) {
-      ctx.body = {
-        code: 500,
-        msg: "账号密码错误",
-        data: null,
-      };
-      return;
+      throw new HTTPException(1, "用户名或密码错误", null, 500);
     }
     const token = app.jwt.sign(
       {
@@ -109,13 +75,7 @@ class UserController extends Controller {
       },
       app.config.jwt.secret
     );
-    ctx.body = {
-      code: 200,
-      message: "登录成功",
-      data: {
-        token,
-      },
-    };
+    this.success(0, "登录成功", { token });
   }
   /**
    * @Summary 获取用户信息
@@ -127,31 +87,16 @@ class UserController extends Controller {
 
   async getUserInfo() {
     const { ctx, app } = this;
-    const token = ctx.request.header.authorization; // 获取header 的token
-    if (!token) {
-      ctx.body = {
-        code: 500,
-        msg: "token不存在",
-        data: null,
-      };
-      return;
+    // console.log(ctx.state.userInfo);
+    const { id } = ctx.state.userInfo;
+    const userInfo = await ctx.service.user.getUserById(id);
+    if (userInfo === "error") {
+      throw new HTTPException(8, "未知错误", null, 500);
     }
-    try {
-      const decode = app.jwt.verify(token, app.config.jwt.secret);
-      ctx.body = {
-        code: 200,
-        msg: "成功",
-        data: {
-          ...decode,
-        },
-      };
-    } catch (error) {
-      ctx.body = {
-        code: 500,
-        msg:  "非法标记",
-        data: null,
-      };
+    if(!userInfo){
+      throw new HTTPException(1, "该用户不存在", null, 500);
     }
+    this.success(0, "success", userInfo);
   }
 }
 

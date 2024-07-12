@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-09 15:46:00
+ * @LastEditTime: 2024-07-11 17:58:18
  * @Description: 描述
  */
 /* eslint valid-jsdoc: "off" */
@@ -84,10 +84,12 @@ module.exports = (appInfo) => {
     },
   };
 
+  // console.log(config);
   return {
     ...config,
     ...userConfig,
     mysql,
-    swaggerdoc
+    swaggerdoc,
+    middleware: ["errorHandler"],
   };
 };

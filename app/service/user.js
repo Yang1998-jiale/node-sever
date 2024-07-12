@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 11:17:12
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-09 17:30:49
+ * @LastEditTime: 2024-07-12 14:51:00
  * @Description: 描述
  */
 "use strict";
@@ -14,6 +14,7 @@ class UserService extends Service {
     const { app } = this;
     try {
       const result = await app.mysql.get("user_info", { username });
+      delete result.password;
       return result;
     } catch {
       return "error";
@@ -24,6 +25,17 @@ class UserService extends Service {
     const { app } = this;
     try {
       const result = await app.mysql.insert("user_info", userInfo);
+      return result;
+    } catch {
+      return "error";
+    }
+  }
+
+  async getUserById(id) {
+    const { app } = this;
+    try {
+      const result = await app.mysql.get("user_info", { id });
+      delete result.password;
       return result;
     } catch {
       return "error";
