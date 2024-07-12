@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 11:17:12
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-12 14:51:00
+ * @LastEditTime: 2024-07-12 16:48:06
  * @Description: 描述
  */
 "use strict";
@@ -14,7 +14,7 @@ class UserService extends Service {
     const { app } = this;
     try {
       const result = await app.mysql.get("user_info", { username });
-      delete result.password;
+      // delete result.password;
       return result;
     } catch {
       return "error";
