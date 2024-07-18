@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-11 17:58:18
+ * @LastEditTime: 2024-07-17 17:09:29
  * @Description: 描述
  */
 /* eslint valid-jsdoc: "off" */
@@ -45,12 +45,12 @@ module.exports = (appInfo) => {
   const mysql = {
     client: {
       // host
-      host: "localhost",
+      host: "124.71.145.91",
       // 端口号
       port: "3306",
       // 用户名
       user: "root",
-      password: "123456",
+      password: "molimicha12138",
       database: "cha",
     },
     // 是否加载到 app 上，默认开启
