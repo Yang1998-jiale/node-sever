@@ -12,6 +12,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
+      - name: Set Node Variate
+        run: export MYSQL_USER=${{ secrets.MYSQL_USER }}
+        run: export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
       - name: Build Image
         run: docker build -t node-serve:latest .
       - name: Login to registry
@@ -20,4 +23,17 @@ jobs:
         run: docker tag node-serve:latest swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
       - name: Push Image
         run: docker push swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
-        
+  pull-docker:
+    needs: [build]
+    name: Pull Docker
+    runs-on: ubuntu-latest
+    steps:
+      # 登录腾讯云服务器并将docker镜像仓库的镜像pull下来后启动新容器
+      - name: Deploy
+      # 使用appleboy/ssh-action@master完成ssh登录服务器
+        uses: appleboy/ssh-action@master
+        with:
+          host: 124.71.145.91
+          username: root
+          password: Molimicha12138
+          port: 22
