@@ -44,6 +44,6 @@ jobs:
             docker rm -f $(docker ps -a --filter ancestor=node-serve:latest -q) 2>/dev/null
             docker rmi -f $(docker images node-serve:latest -q) 2>/dev/null
             docker login -u ${{ secrets.IMAGE_USER_NAME }} -p ${{ secrets.IMAGE_USER_PASSWORD }} swr.cn-east-3.myhuaweicloud.com
-            docker pull node-serve:latest
+            docker pull swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
             docker run --name node-serve  -d -p 7001:7001 node-serve:latest
 
