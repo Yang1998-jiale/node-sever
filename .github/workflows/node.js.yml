@@ -12,8 +12,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
-      - name: Set Node Variate
+      - name: Set Node Variate MYSQL_USER
         run: export MYSQL_USER=${{ secrets.MYSQL_USER }}
+      - name: Set Node Variate MYSQL_PASSWORD
         run: export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
       - name: Build Image
         run: docker build -t node-serve:latest .
