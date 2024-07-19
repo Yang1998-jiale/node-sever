@@ -40,10 +40,10 @@ jobs:
           port: 22
           # 登录上服务器后执行的代码步骤（停止旧容器->删除旧容器->删除旧镜像->登录镜像仓库->pull新镜像->利用新镜像启动新容器）
           script: |
-            docker stop $(docker ps --filter ancestor=node-serve -q) 2>/dev/null
-            docker rm -f $(docker ps -a --filter ancestor=node-serve:latest -q) 2>/dev/null
-            docker rmi -f $(docker images node-serve:latest -q) 2>/dev/null
+            docker stop $(docker ps --filter ancestor=swr.cn-east-3.myhuaweicloud.com/cha/node-serve -q) 2>/dev/null
+            docker rm -f $(docker ps -a --filter ancestor=swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest -q) 2>/dev/null
+            docker rmi -f $(docker images swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest -q) 2>/dev/null
             docker login -u ${{ secrets.IMAGE_USER_NAME }} -p ${{ secrets.IMAGE_USER_PASSWORD }} swr.cn-east-3.myhuaweicloud.com
             docker pull swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
-            docker run --name node-serve  -d -p 7001:7001 node-serve:latest
+            docker run --name node-serve  -d -p 7001:7001 swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
 
