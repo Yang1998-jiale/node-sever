@@ -7,6 +7,7 @@
     "declarations": true
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "egg": "^3.17.5",
     "egg-cors": "^3.0.1",
     "egg-jwt": "^3.1.7",
@@ -24,7 +25,8 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-node-serve",
+    "start1": "egg-scripts start --daemon --title=egg-server-node-serve",
+    "start": "egg-scripts start --port=7002 --title=egg-server-showcase",
     "stop": "egg-scripts stop --title=egg-server-node-serve",
     "dev": "egg-bin dev",
     "test": "npm run lint -- --fix && npm run test:local",

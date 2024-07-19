@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-09 15:46:00
+ * @LastEditTime: 2024-07-19 10:40:20
  * @Description: 描述
  */
 /* eslint valid-jsdoc: "off" */
@@ -10,7 +10,9 @@
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
+require("dotenv").config();
 module.exports = (appInfo) => {
+  // console.log(appInfo.config);
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
@@ -45,13 +47,13 @@ module.exports = (appInfo) => {
   const mysql = {
     client: {
       // host
-      host: "localhost",
+      host: "124.71.145.91",
       // 端口号
       port: "3306",
       // 用户名
-      user: "root",
-      password: "123456",
-      database: "cha",
+      user: process.env.MYSQL_USER || "root",
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE || "cha",
     },
     // 是否加载到 app 上，默认开启
     app: true,
@@ -84,10 +86,19 @@ module.exports = (appInfo) => {
     },
   };
 
+  // console.log(config);
   return {
     ...config,
     ...userConfig,
     mysql,
-    swaggerdoc
+    swaggerdoc,
+    middleware: ["errorHandler"],
+    cluster: {
+      listen: {
+        port: 7001,
+        // hostname: "0.0.0.0",
+        hostname: "",
+      },
+    },
   };
 };

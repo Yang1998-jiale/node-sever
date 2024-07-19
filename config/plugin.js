@@ -2,10 +2,12 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-09 15:19:43
+ * @LastEditTime: 2024-07-19 10:20:24
  * @Description: 描述
  */
 /** @type Egg.EggPlugin */
+
+const path = require("path");
 module.exports = {
   cors: {
     enable: true,
