@@ -12,9 +12,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16.x"
-      - name: Create Env to Config File
-        run: echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} 
-MYSQL_NAME=${{ secrets.MYSQL_NAME }}" > .env 
+      - name: Write In .env password
+        run: echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} " >> .env 
+      - name: Write In .env name
+        run : echo "MYSQL_NAME=${{ secrets.MYSQL_NAME }}" >> .env 
       - name: Build Image
         run: docker build -t node-serve:latest .
       - name: Login to registry
