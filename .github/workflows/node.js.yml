@@ -20,3 +20,4 @@ jobs:
         run: docker tag node-serve:latest swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
       - name: Push Image
         run: docker push swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
+        
