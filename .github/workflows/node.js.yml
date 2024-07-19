@@ -16,5 +16,7 @@ jobs:
         run: docker build -t node-serve:latest .
       - name: Login to registry
         run: docker login -u cn-east-3@WU0DRR43BHH0OZI0FNCG -p 02fc58cb6d9b94b96dc3fd7fba31ff6fbbaf79b903d59399a2dfe3b3ce315b5f swr.cn-east-3.myhuaweicloud.com
+      - name: Set Docker Tag
+        run: docker tag node-serve:latest swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
       - name: Push Image
         run: docker push swr.cn-east-3.myhuaweicloud.com/cha/node-serve:latest
