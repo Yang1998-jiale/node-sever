@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-19 14:27:14
+ * @LastEditTime: 2024-07-19 16:01:49
  * @Description: 描述
  */
 /* eslint valid-jsdoc: "off" */
@@ -11,6 +11,7 @@
  * @param {Egg.EggAppInfo} appInfo app info
  */
 require("dotenv").config();
+console.log("+++++++++++++++++++++++++++++++++", process.env.MYSQL_PASSWORD);
 module.exports = (appInfo) => {
   // console.log(appInfo.config);
   /**
