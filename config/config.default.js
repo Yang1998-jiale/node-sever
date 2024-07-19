@@ -2,7 +2,7 @@
  * @Author: yjl
  * @Date: 2024-07-09 09:52:33
  * @LastEditors: yjl
- * @LastEditTime: 2024-07-19 10:40:20
+ * @LastEditTime: 2024-07-19 14:27:14
  * @Description: 描述
  */
 /* eslint valid-jsdoc: "off" */
@@ -93,12 +93,5 @@ module.exports = (appInfo) => {
     mysql,
     swaggerdoc,
     middleware: ["errorHandler"],
-    cluster: {
-      listen: {
-        port: 7001,
-        // hostname: "0.0.0.0",
-        hostname: "",
-      },
-    },
   };
 };

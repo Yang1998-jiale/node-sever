@@ -20,4 +20,4 @@ COPY . /home/node-serve
 EXPOSE 7001
  
 # 启动Egg.js应用
-CMD npm run dev
+CMD npm run start
