@@ -1,7 +1,7 @@
 name: Egg-Serve Docker Image CI/CD
 on:
   push:
-    branches: [feature]
+    branches: [dev]
 jobs:
   build:
     runs-on: ubuntu-latest
