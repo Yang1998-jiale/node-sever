@@ -34,9 +34,9 @@ jobs:
         # 使用appleboy/ssh-action@master完成ssh登录服务器
         uses: appleboy/ssh-action@master
         with:
-          host: 124.71.145.91
-          username: root
-          password: Molimicha12138
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_NAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           # 登录上服务器后执行的代码步骤（停止旧容器->删除旧容器->删除旧镜像->登录镜像仓库->pull新镜像->利用新镜像启动新容器）
           script: |
